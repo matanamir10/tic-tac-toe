@@ -1,12 +1,13 @@
 import React from 'react';
 import './Board.scss';
+// import PropTypes from 'prop-types';
 import {Square} from '../Square/Square';
 
-export const Board = ({rows,columns}) => {
+export const Board = ({rows,columns,squares}) => {
     // TODO : render dynamic rows and columns
     return (
         <div className='board' >
-            {[...Array(rows*columns).fill().map((square,index)=> <Square id={index}/>)]}
+            {squares.map((_,index)=> <Square key={index} value={index+1}/>)}
         </div>
     )
 }
@@ -14,4 +15,39 @@ export const Board = ({rows,columns}) => {
 Board.defaultProps = {
     rows:3,
     columns:3
+}
+
+Board.propTypes = {
+    squares: function(props, propName, componentName) {
+        let error = false;
+        const {rows,colums} = props;
+        const squares = props[propName]
+        if(!squares ){
+            error = true;
+        }
+        // ensure it is an array
+        if (!Array.isArray(squares)) {
+            error = true;
+        }
+        // ensure array has items
+        else if (squares.length !== rows*colums) {
+            error = true;
+        }
+        // ensure all items are strings
+        else {
+          for (let i = 0; i < squares.length; i++) {
+            if (typeof squares[i] !== 'string') {
+                error = true;
+                break;
+            }
+          }
+        }
+        // throw error
+        if (error) {
+          return new Error(
+            `Invalid prop ${propName} supplied to 
+             ${componentName} Validation failed.`
+          );
+        }
+    }
 }
