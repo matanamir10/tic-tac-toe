@@ -1,13 +1,14 @@
 import React from 'react';
 import './Board.scss';
 // import PropTypes from 'prop-types';
-import {Square} from '../Square/Square';
+import {Square as SquareCmp} from '../Square/Square';
+import {Square} from '../../models/Square';
 
 export const Board = ({rows,columns,squares}) => {
     // TODO : render dynamic rows and columns
     return (
         <div className='board' >
-            {squares.map((_,index)=> <Square key={index} value={index+1}/>)}
+            {squares.map((_,index)=> <SquareCmp key={index} value={index+1}/>)}
         </div>
     )
 }
@@ -36,7 +37,7 @@ Board.propTypes = {
         // ensure all items are strings
         else {
           for (let i = 0; i < squares.length; i++) {
-            if (typeof squares[i] !== 'string') {
+            if (!squares[i] instanceof Square) {
                 error = true;
                 break;
             }

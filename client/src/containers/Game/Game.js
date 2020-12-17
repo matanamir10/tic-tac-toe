@@ -7,7 +7,7 @@ export const Game = () => {
     return (
     <div className='game'>
     <MatchDetails/>
-     <Board/>       
+     <Board />       
      </div>
     )
 }
