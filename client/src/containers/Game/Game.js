@@ -18,7 +18,7 @@ export const Game = () => {
         console.log('index',index);
         setSquares(prevSquares => prevSquares.map((square,currIndex)=>{
             if(currIndex === index){
-                return {...square,value:'Oponent',isChecked:true};
+                return {...square,value:'oponent',isChecked:true};
             }
             return  square
         }))
