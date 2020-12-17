@@ -1,9 +1,16 @@
 @import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
 
 .square{
+    @include flexCenter;
     border:  1px solid $square-color;
+    
     
     &:hover{
         cursor: pointer;
+    }
+
+    &__text{
+       font-size: 2rem;
     }
 }

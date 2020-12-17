@@ -4,7 +4,7 @@ import './Square.scss';
 export const Square = ({id}) => {
     return (
         <div className='square'>
-            {id+1}
+            <span className='square__text'>{id}</span>   
         </div>
     )
 }
