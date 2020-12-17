@@ -4,11 +4,11 @@ import './Board.scss';
 import {Square as SquareCmp} from '../Square/Square';
 import {Square} from '../../models/Square';
 
-export const Board = ({rows,columns,squares}) => {
+export const Board = ({rows,columns,squares,onSquareClicked}) => {
     // TODO : render dynamic rows and columns
     return (
         <div className='board' >
-            {squares.map((_,index)=> <SquareCmp key={index} value={index+1}/>)}
+            {squares.map(square=> <SquareCmp key={square.id} square={square} onSquareClicked={onSquareClicked}/>)}
         </div>
     )
 }
