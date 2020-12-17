@@ -1,0 +1,9 @@
+@import '../../styles/variables.scss';
+
+.square{
+    border:  1px solid $square-color;
+    
+    &:hover{
+        cursor: pointer;
+    }
+}
