@@ -1,16 +1,12 @@
 import React from 'react';
 import './Board.scss';
+import {Square} from '../Square/Square';
 
 export const Board = ({rows,columns}) => {
-
-    const style = {
-        'grid-template-rows': rows,
-       'grid-template-columns': columns,
-    }
-
+    // TODO : render dynamic rows and columns
     return (
-        <div className='board' style={style}>
-            {[... Array(rows*columns).map((square,index)=> <Square id={index}/>)]}
+        <div className='board' >
+            {[...Array(rows*columns).fill().map((square,index)=> <Square id={index}/>)]}
         </div>
     )
 }
