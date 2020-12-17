@@ -1,12 +1,13 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import './MatchDetails.scss';
+import {OponentContext} from '../../context/Oponent';
 
 export const MatchDetails = () => {
+    const {turn} = useContext(OponentContext);
+
     return (
         <div className='match-details'>
-            <p>Matan</p>
-            <strong>vs</strong>
-            <p>Someone</p>
+            <p>Now: {turn}</p>
         </div>
     )
 }
