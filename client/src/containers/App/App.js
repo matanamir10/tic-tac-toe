@@ -40,7 +40,7 @@ export const App = () => {
   return (
     <div className="container">
       {routes}
-      <ToastContainer />
+      <ToastContainer className="tic-tac-toe-toast" />
     </div>
   );
 };
