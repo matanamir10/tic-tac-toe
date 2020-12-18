@@ -15,9 +15,13 @@ export class Oponent implements IDisposeable {
   }
 
   onDisconnect(func: (id: string) => void): void {
-    this.socket.on("disconnect", func.bind(null, this.id));
+    this.socket.on("disconnect", () => {
+      console.log("disconnecting...");
+      func.bind(null, this.id);
+    });
   }
   dispose(): void {
+    // console.log("on dispose");
     this.socket.disconnect();
   }
 }
