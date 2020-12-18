@@ -3,6 +3,7 @@ import http from "http";
 import express from "express";
 import cors from "cors";
 import socketIO, { Socket, Server } from "socket.io";
+import colors from "colors";
 import { Queue } from "../models/Queue";
 import { Oponent } from "./Oponent";
 import { GameManager } from "./GameManager";
@@ -31,6 +32,9 @@ export class ServerSocket {
 
     ServerSocket.serverSocker = socketIO(server);
     ServerSocket.serverSocker.on("connection", (socket: Socket) => {
+      console.log(colors.blue.inverse("new connection"));
+      console.log(socket.id, socket.connected);
+      socket.on("matan", (data) => console.log(data));
       // If not found usesr waiting no one is available so push him to Queue
       const availeAbleUser = this.usersManager.dequeue();
       const newOponent = new Oponent(socket);
@@ -38,7 +42,6 @@ export class ServerSocket {
         const isRemoved = this.usersManager.remove(id);
         console.log("is Removed", isRemoved);
       });
-
       if (!availeAbleUser) {
         this.usersManager.enqueue(newOponent);
         console.log("size", this.usersManager.size());
@@ -48,6 +51,8 @@ export class ServerSocket {
       new GameManager(availeAbleUser, newOponent);
     });
 
-    server.listen(4000);
+    server.listen(4000, () => {
+      console.log("Server listening on port 4000");
+    });
   }
 }
