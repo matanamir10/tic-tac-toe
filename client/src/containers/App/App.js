@@ -9,7 +9,6 @@ import { Setup } from "../Setup/Setup";
 
 export const App = () => {
   const { isGameAvailable } = useContext(OponentContext);
-  console.log(isGameAvailable);
 
   useEffect(() => {
     if (isGameAvailable) {

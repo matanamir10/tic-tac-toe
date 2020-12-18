@@ -1,0 +1,6 @@
+@import "../styles/mixin.scss";
+
+.error-boundary {
+  height: 100%;
+  @include flexCenter();
+}
