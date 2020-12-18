@@ -2,7 +2,7 @@ import io from "socket.io-client";
 
 let socket = null;
 
-export default {
+const socketConnection = {
   connect() {
     socket = io("http://localhost:4000");
   },
@@ -13,3 +13,5 @@ export default {
     return socket;
   },
 };
+
+export default socketConnection;
