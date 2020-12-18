@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import "./App.scss";
 import { Switch, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { OponentContext } from "../../context/Oponent";
 import { ErrorBoundary } from "../../ErrorBoundary/ErrorBoundary";
 import { Game } from "../Game/Game";
@@ -32,5 +33,10 @@ export const App = () => {
     );
   }
 
-  return <div className="container">{routes}</div>;
+  return (
+    <div className="container">
+      {routes}
+      <ToastContainer />
+    </div>
+  );
 };
