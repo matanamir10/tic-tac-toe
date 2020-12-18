@@ -60,6 +60,7 @@ export const Game = () => {
   };
 
   const closeGame = () => {
+    setPlayerTurn(false);
     socket.emit("winner");
     setGame(false);
   };
