@@ -15,7 +15,7 @@ export class ServerSocket {
     const server = http.createServer(app);
 
     const io = socketIO(server);
-    server.on("connection", (socket: Socket) => {
+    io.on("connection", (socket: Socket) => {
       console.log(socket.id);
     });
 
