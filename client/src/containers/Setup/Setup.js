@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import "./Setup.scss";
 import socket from "../../socket";
-import Button from "@material/react-button";
 import { toast } from "react-toastify";
 import { OponentContext } from "../../context/Oponent";
 
@@ -28,7 +27,9 @@ export const Setup = () => {
   console.log("render set up");
   return (
     <div className="setup">
-      <button>Start Game</button>
+      <button className="setup__cta" onClick={startConnection}>
+        Start Game
+      </button>
     </div>
   );
 };
