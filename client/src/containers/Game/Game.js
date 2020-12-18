@@ -1,14 +1,15 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Game.scss';
 import {Board} from '../../components/Board/Board';
 import { MatchDetails } from '../../components/MatchDetails/MatchDetails';
 import { Square } from '../../models/Square';
 import { OponentContext } from '../../context/Oponent';
+import { winningOptions } from '../../constants/WinningOptions';
 
 // Maybe use game configuraion page before
 const initalSquares = [];
 for(let i=0; i<9; i++){
-   initalSquares.push(new Square(i,null,false))
+   initalSquares[i] = new Square(i,null,false);
 }
 
 
@@ -17,16 +18,39 @@ export const Game = () => {
     const {turn,setPlayerTurn} = useContext(OponentContext);
 
     const onSquareClicked = index =>{
-        console.log('index',index);
         setSquares(prevSquares => prevSquares.map((square,currIndex)=>{
             if(currIndex === index){
                 return {...square,value:turn,isChecked:true};
             }
-            return  square
+            return square;
         }));
+    }
+
+    const checkForWin = ()=>{
+        let isWinner  = null;
+        for(const option of winningOptions){
+            const [first,second,third] = option;
+            console.log(first,second,third)
+            isWinner = squares[first].value && squares[first].value === squares[second].value && squares[first].value === squares[third].value ? squares[first].value : null;
+            console.log(isWinner);
+            if(isWinner){
+                break;
+            }
+        }
+        return isWinner;
+    }
+
+
+    useEffect(()=>{
+        let winner = checkForWin();
+        if(winner){
+            alert(`winner is: ${winner}`)
+        }
         setPlayerTurn();
         // TODO: check win
-    }
+    },[squares]);
+
+
     return (
     <div className='game'>
     <MatchDetails/>
