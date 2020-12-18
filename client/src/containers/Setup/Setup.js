@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import "./Setup.scss";
 import socket from "../../socket";
+import Button from "@material/react-button";
+import { toast } from "react-toastify";
 import { OponentContext } from "../../context/Oponent";
 
 export const Setup = () => {
@@ -19,14 +21,14 @@ export const Setup = () => {
         });
       });
     } catch (error) {
-      console.log(error);
+      toast.error(error.message, { autoClose: 3000 });
     }
   };
 
   console.log("render set up");
   return (
     <div className="setup">
-      <button onClick={startConnection}>start</button>
+      <button>Start Game</button>
     </div>
   );
 };
