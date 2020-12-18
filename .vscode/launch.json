@@ -5,6 +5,16 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "WSL Chrome",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/src",
+      "sourceMapPathOverrides": {
+        "/*": "/__vscode-remote-uri__/*"
+      }
+    },
+    {
       "name": "tic-tac-toe server",
       "port": 4000,
       "request": "launch",

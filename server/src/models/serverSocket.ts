@@ -47,7 +47,6 @@ export class ServerSocket {
         console.log("size", this.usersManager.size());
         return;
       }
-
       new GameManager(availeAbleUser, newOponent);
     });
 

@@ -23,7 +23,7 @@ export const Setup = () => {
     }
   };
 
-  console.log("render");
+  console.log("render set up");
   return (
     <div className="setup">
       <button onClick={startConnection}>start</button>

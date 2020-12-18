@@ -27,13 +27,11 @@ export const App = () => {
       <Switch>
         <Route
           path="/"
-          render={(props) => {
-            return (
-              <ErrorBoundary>
-                <Game {...props} />
-              </ErrorBoundary>
-            );
-          }}
+          render={() => (
+            <ErrorBoundary>
+              <Game />
+            </ErrorBoundary>
+          )}
         />
       </Switch>
     );

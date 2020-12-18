@@ -1,6 +1,11 @@
-.board{
-    height: 100%;
-    display: grid;
-    grid-template-rows: repeat(3,1fr);
-    grid-template-columns: repeat(3,1fr);
+.board {
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.7;
+  }
 }

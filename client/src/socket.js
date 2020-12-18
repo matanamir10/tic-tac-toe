@@ -4,13 +4,8 @@ let socket = null;
 
 const socketConnection = {
   connect() {
-    if (socket) {
-      return;
-    }
-    socket = io("http://localhost:4000", {
-      reconnection: false,
-      transports: ["websocket"],
-    });
+    console.log("in socker connection");
+    socket = io("http://localhost:4000");
   },
   getSocket() {
     if (!socket) {
