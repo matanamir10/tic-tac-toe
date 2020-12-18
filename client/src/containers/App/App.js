@@ -1,24 +1,36 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import "./App.scss";
+import { Switch, Route } from "react-router-dom";
+import { OponentContext } from "../../context/Oponent";
 import { ErrorBoundary } from "../../ErrorBoundary/ErrorBoundary";
 import { Game } from "../Game/Game";
-import socket from "../../socket";
+import { Setup } from "../Setup/Setup";
 
 export const App = () => {
-  useEffect(() => {
-    socket.connect();
-    const connection = socket.getSocket();
-    connection.on("connect", () => {
-      connection.on("game", (data) => {
-        console.log(data);
-      });
-    });
-  });
-  return (
-    <div className="container">
-      <ErrorBoundary>
-        <Game />
-      </ErrorBoundary>
-    </div>
+  const { isGameAvailable } = useContext(OponentContext);
+  console.log(isGameAvailable);
+
+  let routes = (
+    <Switch>
+      <Route path="/" component={Setup} />
+    </Switch>
   );
+  if (isGameAvailable) {
+    routes = (
+      <Switch>
+        <Route
+          path="/"
+          render={(props) => {
+            return (
+              <ErrorBoundary>
+                <Game {...props} />
+              </ErrorBoundary>
+            );
+          }}
+        />
+      </Switch>
+    );
+  }
+
+  return <div className="container">{routes}</div>;
 };
