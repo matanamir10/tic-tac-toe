@@ -7,8 +7,11 @@ import socket from "../../socket";
 export const App = () => {
   useEffect(() => {
     socket.connect();
-    socket.getSocket().on("connect", () => {
-      console.log("connected");
+    const connection = socket.getSocket();
+    connection.on("connect", () => {
+      connection.on("game", (data) => {
+        console.log(data);
+      });
     });
   });
   return (
