@@ -3,7 +3,7 @@ import http from "http";
 import express from "express";
 import socketIo from "socket.io";
 
-const config = dotenv.config();
+// const config = dotenv.config();
 
 export class ServerSocket {
   constructor() {
@@ -20,7 +20,7 @@ export class ServerSocket {
 
   listen(): void {
     console.log("start listenning....");
-    const io = (serverSocket = socketIo(http));
+    const io = socketIo(http);
     io.on("connection", (socket: SocketIO.Socket) => {
       console.log(socket.id);
     });
