@@ -1,18 +1,9 @@
 import React from "react";
 import "./Board.scss";
-// import PropTypes from 'prop-types';
 import { Square as SquareCmp } from "../Square/Square";
 import { Square } from "../../models/Square";
 
-export const Board = ({
-  rows,
-  columns,
-  player,
-  squares,
-  onSquareClicked,
-  disabled,
-}) => {
-  // TODO : render dynamic rows and columns
+export const Board = ({ player, squares, onSquareClicked, disabled }) => {
   let boardStyle = "board";
   if (disabled) {
     boardStyle = "board board--disabled";
@@ -31,15 +22,9 @@ export const Board = ({
   );
 };
 
-Board.defaultProps = {
-  rows: 3,
-  columns: 3,
-};
-
 Board.propTypes = {
   squares: function (props, propName, componentName) {
     let error = false;
-    const { rows, colums } = props;
     const squares = props[propName];
     if (!squares) {
       error = true;
@@ -49,10 +34,10 @@ Board.propTypes = {
       error = true;
     }
     // ensure array has items
-    else if (squares.length !== rows * colums) {
+    else if (squares.length !== 9) {
       error = true;
     }
-    // ensure all items are strings
+    // ensure all items are Square types
     else {
       for (let i = 0; i < squares.length; i++) {
         if (!squares[i] instanceof Square) {

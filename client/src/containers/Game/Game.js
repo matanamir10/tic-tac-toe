@@ -13,7 +13,7 @@ for (let i = 0; i < 9; i++) {
   initalSquares[i] = new Square(i, null, false);
 }
 
-let clickedINdex = null;
+let clickedIndex = null;
 
 export const Game = () => {
   const [squares, setSquares] = useState(initalSquares);
@@ -23,8 +23,7 @@ export const Game = () => {
   const socket = socketConnection.getSocket();
 
   const onSquareClicked = (index, playerType) => {
-    console.log("onSquareClicked", playerType);
-    clickedINdex = index;
+    clickedIndex = index;
     setSquares((prevSquares) =>
       prevSquares.map((square, currIndex) => {
         if (currIndex === index) {
@@ -40,7 +39,6 @@ export const Game = () => {
   };
 
   const checkForWin = () => {
-    console.log(squares);
     let isWinner = null;
     for (const option of winningOptions) {
       const [first, second, third] = option;
@@ -69,7 +67,7 @@ export const Game = () => {
   useEffect(() => {
     if (turn) {
       setPlayerTurn(false);
-      socket.emit("move", clickedINdex);
+      socket.emit("move", clickedIndex);
     }
 
     let winner = checkForWin();
@@ -89,22 +87,14 @@ export const Game = () => {
   }, [squares]);
 
   useEffect(() => {
-    console.log("setup listners");
-
     socket.on("player", (player) => {
-      console.log("Player", player);
-      console.log(turn);
       setPlayerType(player);
     });
     socket.on("act", () => {
-      console.log("act");
       setPlayerTurn(true);
     });
 
     socket.on("updateBoard", (data) => {
-      console.log(data);
-      console.log("updateBoard");
-      console.log(data.index, data.player);
       onSquareClicked(data.index, data.player);
     });
     socket.emit("ready");
@@ -120,8 +110,6 @@ export const Game = () => {
         disabled={!turn}
         squares={squares}
         player={player}
-        rows={3}
-        columns={3}
         onSquareClicked={onSquareClicked}
       />
     </div>
