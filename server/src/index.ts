@@ -1,4 +1,10 @@
-import * as dotenv from "dotenv";
+import { ServerSocket } from "./models/serverSocket";
 
-const config = dotenv.config();
-console.log(config);
+const run = async () => {
+  const serverSocekt = new ServerSocket();
+  serverSocekt.listen();
+};
+
+run().catch((err) => {
+  console.log(err);
+});
