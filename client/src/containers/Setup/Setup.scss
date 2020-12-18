@@ -1,0 +1,6 @@
+@import "../../styles/mixin.scss";
+
+.setup {
+  height: 100%;
+  @include flexCenter(column);
+}
