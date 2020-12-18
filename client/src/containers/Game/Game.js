@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./Game.scss";
+import { toast } from "react-toastify";
 import { Board } from "../../components/Board/Board";
 import { MatchDetails } from "../../components/MatchDetails/MatchDetails";
 import { Square } from "../../models/Square";
 import { OponentContext } from "../../context/Oponent";
 import { winningOptions } from "../../constants/WinningOptions";
-import { Player } from "../../constants/Player";
 import socketConnection from "../../socket";
 
-// Maybe use game configuraion page before
 const initalSquares = [];
 for (let i = 0; i < 9; i++) {
   initalSquares[i] = new Square(i, null, false);
@@ -62,23 +61,30 @@ export const Game = () => {
     return squares.every((sq) => sq.value !== null);
   };
 
+  const closeGame = () => {
+    socket.emit("winner");
+    setGame(false);
+  };
+
   useEffect(() => {
-    console.log("turn in useeffect: ", turn);
     if (turn) {
       setPlayerTurn(false);
       socket.emit("move", clickedINdex);
     }
 
-    // TODO: check win
     let winner = checkForWin();
     if (winner || checkDraw()) {
       if (winner) {
-        console.log(`winner is: ${winner}`);
+        toast.info(`The winner is: ${winner}`, {
+          autoClose: 3000,
+          onClose: closeGame,
+        });
       } else {
-        console.log("Great draw");
+        toast.info("Great draw", {
+          autoClose: 3000,
+          onClose: closeGame,
+        });
       }
-      socket.emit("winner");
-      setGame(false);
     }
   }, [squares]);
 
@@ -107,7 +113,6 @@ export const Game = () => {
     };
   }, []);
 
-  console.log("player", player);
   return (
     <div className="game">
       <MatchDetails />
