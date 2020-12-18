@@ -4,7 +4,13 @@ let socket = null;
 
 const socketConnection = {
   connect() {
-    socket = io("http://localhost:4000");
+    if (socket) {
+      return;
+    }
+    socket = io("http://localhost:4000", {
+      reconnection: false,
+      transports: ["websocket"],
+    });
   },
   getSocket() {
     if (!socket) {
