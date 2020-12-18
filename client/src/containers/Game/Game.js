@@ -97,6 +97,11 @@ export const Game = () => {
     socket.on("updateBoard", (data) => {
       onSquareClicked(data.index, data.player);
     });
+
+    socket.on("leave", () => {
+      toast.info("Oponent leaved");
+      closeGame();
+    });
     socket.emit("ready");
     return () => {
       socket.disconnect();

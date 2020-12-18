@@ -36,6 +36,9 @@ export class GameManager implements IDisposeable {
       this.oponentOne.socket.on("winner", () => {
         this.dispose();
       });
+      this.oponentOne.socket.on("disconnetc", () => {
+        this.oponentTwo.socket.emit("leave");
+      });
     });
 
     this.oponentTwo.socket.on("ready", () => {
@@ -52,6 +55,10 @@ export class GameManager implements IDisposeable {
 
       this.oponentTwo.socket.on("winner", () => {
         this.dispose();
+      });
+      this.oponentTwo.socket.on("disconnect", () => {
+        console.log("disc;kihsd");
+        this.oponentOne.socket.emit("leave");
       });
     });
   }
