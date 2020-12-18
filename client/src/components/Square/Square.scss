@@ -1,0 +1,20 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixin.scss';
+
+.square{
+    @include flexCenter;
+    border:  1px solid $square-color;
+    
+    &--disabled{
+        pointer-events: none;
+        opacity: 0.7;
+    }
+    
+    &:hover{
+        cursor: pointer;
+    }
+
+    &__text{
+       font-size: 2rem;
+    }
+}
