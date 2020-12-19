@@ -57,8 +57,9 @@ export class ServerSocket {
       new GameManager(availeAbleUser, newOponent);
     });
 
-    server.listen(4000, () => {
-      AppLogger.getLogger().info("Server listening on port 4000");
+    const port = process.env.PORT || 4000;
+    server.listen(port, () => {
+      AppLogger.getLogger().info(`Server listening on ${port}`);
     });
   }
 }
