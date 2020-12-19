@@ -14,12 +14,10 @@ export const Setup = () => {
       setLoading(true);
       socket.connect();
       const connection = socket.getSocket();
-      console.log(connection);
       connection.on("connect", () => {
         console.log("connected");
         connection.on("game", (data) => {
           setLoading(false);
-          console.log(data);
           setGame(true);
         });
       });
@@ -28,7 +26,6 @@ export const Setup = () => {
     }
   };
 
-  console.log("render set up");
   return (
     <div className="setup">
       <button className="setup__cta" onClick={startConnection}>
