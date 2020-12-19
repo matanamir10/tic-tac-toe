@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useUnload } from "../hooks/useUnload";
 
 export const withWindowReload = (WrappedComponent) => {
   return (props) => {
-    useEffect(() => {
-      window.addEventListener("beforeunload", (event) => {
-        event.returnValue = `Are you sure you want to leave?`;
-      });
-    }, []);
+    useUnload((e) => {
+      e.preventDefault();
+      e.returnValue = "Are you sure?";
+    });
 
     return (
       <>
