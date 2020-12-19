@@ -27,15 +27,6 @@ export class ServerSocket {
     const app = express();
     app.use(cors());
 
-    if (process.env.NODE_ENV === "production") {
-      app.use(express.static(path.join(__dirname, "..", "client", "build")));
-      app.get("/*", (req, res) => {
-        res.sendFile(
-          path.join(__dirname, "..", "client", "build", "index.html")
-        );
-      });
-    }
-
     const server = http.createServer(app);
 
     ServerSocket.serverSocker = socketIO(server);
@@ -56,6 +47,17 @@ export class ServerSocket {
       }
       new GameManager(availeAbleUser, newOponent);
     });
+
+    if (process.env.NODE_ENV === "production") {
+      app.use(
+        express.static(path.join(__dirname, "..", "..", "client", "build"))
+      );
+      app.get("/*", (req, res) => {
+        res.sendFile(
+          path.join(__dirname, "..", "..", "client", "build", "index.html")
+        );
+      });
+    }
 
     const port = process.env.PORT || 4000;
     server.listen(port, () => {
