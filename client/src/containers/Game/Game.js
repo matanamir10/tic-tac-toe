@@ -62,11 +62,11 @@ const Game = () => {
   };
 
   const notifyEndOfGame = () => {
-    socket.emit("endGame");
     setPlayerTurn(false);
   };
 
   const closeGame = () => {
+    socket.emit("endGame");
     setGame(false);
   };
 
@@ -113,6 +113,7 @@ const Game = () => {
     });
 
     socket.on("leave", () => {
+      console.log("leaving..");
       toast.info("Oponent leaved", { autoClose: 3000, pauseOnHover: false });
       closeGame();
     });

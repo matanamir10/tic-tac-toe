@@ -7,9 +7,9 @@ import { ServerSocket } from "./serverSocket";
 
 export class GameManager implements IDisposeable {
   private gameId: string;
+  private isGmaeLive: boolean = true;
 
   constructor(private oponentOne: Oponent, private oponentTwo: Oponent) {
-    console.log(colors.red('"in game manager"'));
     this.gameId = uuid();
     this.oponentOne.socket.join([this.gameId, this.oponentTwo.socket.id]);
     this.oponentTwo.socket.join([this.gameId, this.oponentOne.socket.id]);
@@ -31,11 +31,14 @@ export class GameManager implements IDisposeable {
       });
 
       this.oponentOne.socket.on("endGame", () => {
-        this.dispose();
+        this.isGmaeLive = false;
+        this.oponentOne.dispose();
       });
 
       this.oponentOne.socket.on("disconnect", () => {
-        this.oponentTwo.socket.emit("leave");
+        if (this.isGmaeLive) {
+          this.oponentTwo.socket.emit("leave");
+        }
       });
     });
 
@@ -51,18 +54,22 @@ export class GameManager implements IDisposeable {
       });
 
       this.oponentTwo.socket.on("endGame", () => {
-        this.dispose();
+        this.isGmaeLive = false;
+        this.oponentTwo.dispose();
       });
 
       this.oponentTwo.socket.on("disconnect", () => {
-        this.oponentOne.socket.emit("leave");
+        console.log("Is gmae live ", this.isGmaeLive);
+        if (this.isGmaeLive) {
+          this.oponentOne.socket.emit("leave");
+        }
       });
     });
   }
 
   dispose(): void {
-    console.log(colors.green("Disposing..."));
-    this.oponentOne.dispose();
-    this.oponentTwo.dispose();
+    // console.log(colors.green("Disposing..."));
+    // this.oponentOne.dispose();
+    // this.oponentTwo.dispose();
   }
 }
