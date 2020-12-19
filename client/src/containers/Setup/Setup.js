@@ -23,7 +23,7 @@ export const Setup = () => {
         });
       });
     } catch (error) {
-      toast.error(error.message, { autoClose: 3000 });
+      toast.error(error.message, { autoClose: 3000, pauseOnHover: false });
     }
   };
 

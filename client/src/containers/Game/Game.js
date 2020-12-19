@@ -86,12 +86,14 @@ const Game = () => {
         toast.info(`The winner is: ${winner}`, {
           autoClose: 3000,
           onClose: closeGame,
+          pauseOnHover: false,
         });
       } else {
         notifyEndOfGame();
         toast.info("Great draw", {
           autoClose: 3000,
           onClose: closeGame,
+          pauseOnHover: false,
         });
       }
     }
@@ -111,7 +113,7 @@ const Game = () => {
     });
 
     socket.on("leave", () => {
-      toast.info("Oponent leaved");
+      toast.info("Oponent leaved", { autoClose: 3000, pauseOnHover: false });
       closeGame();
     });
 

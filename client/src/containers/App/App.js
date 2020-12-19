@@ -12,7 +12,10 @@ export const App = () => {
 
   useEffect(() => {
     if (isGameAvailable) {
-      toast.success("Game is starting...", { autoClose: 3000 });
+      toast.success("Game is starting...", {
+        autoClose: 3000,
+        pauseOnHover: false,
+      });
     }
   }, [isGameAvailable]);
 
@@ -31,6 +34,9 @@ export const App = () => {
               <Game />
             </ErrorBoundary>
           )}
+          onLeave={() => {
+            console.log("leaving...");
+          }}
         />
       </Switch>
     );
