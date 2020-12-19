@@ -1,3 +1,4 @@
+import { AppLogger } from "./models/Logger";
 import { ServerSocket } from "./models/serverSocket";
 
 const run = async () => {
@@ -6,5 +7,5 @@ const run = async () => {
 };
 
 run().catch((err) => {
-  console.log(err);
+  AppLogger.getLogger().error(err.message);
 });
