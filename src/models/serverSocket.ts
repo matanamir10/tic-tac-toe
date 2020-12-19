@@ -1,5 +1,6 @@
 import http from "http";
 import express from "express";
+import path from "path";
 import cors from "cors";
 import socketIO, { Socket, Server } from "socket.io";
 import { Queue } from "../models/Queue";
@@ -25,6 +26,16 @@ export class ServerSocket {
   listen(): void {
     const app = express();
     app.use(cors());
+
+    if (process.env.NODE_ENV === "production") {
+      app.use(express.static(path.join(__dirname, "..", "client", "build")));
+      app.get("/*", (req, res) => {
+        res.sendFile(
+          path.join(__dirname, "..", "client", "build", "index.html")
+        );
+      });
+    }
+
     const server = http.createServer(app);
 
     ServerSocket.serverSocker = socketIO(server);
