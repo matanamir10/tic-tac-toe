@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Player } from "../constants/Player";
 
 export const OponentContext = React.createContext();
 
@@ -13,7 +12,6 @@ export const OponentProvider = (props) => {
   const setGame = (state) => setIsGameAvaliable(state);
 
   const setPlayerType = (type) => {
-    console.log("Player type is:", type);
     setPlayer(type);
   };
 

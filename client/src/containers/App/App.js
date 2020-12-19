@@ -4,8 +4,8 @@ import { Switch, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { OponentContext } from "../../context/Oponent";
 import { ErrorBoundary } from "../../ErrorBoundary/ErrorBoundary";
-import Game from "../Game/Game";
 import { Setup } from "../Setup/Setup";
+import Game from "../Game/Game";
 
 export const App = () => {
   const { isGameAvailable } = useContext(OponentContext);
@@ -34,9 +34,6 @@ export const App = () => {
               <Game />
             </ErrorBoundary>
           )}
-          onLeave={() => {
-            console.log("leaving...");
-          }}
         />
       </Switch>
     );

@@ -11,6 +11,7 @@ export const MatchDetails = () => {
     : player === Player.X
     ? `Player ${Player.O} is`
     : `Player ${Player.X} is`;
+
   return (
     <div className="match-details">
       <p className="match-details__text">{currentPlayer} playing</p>

@@ -6,8 +6,8 @@ import { MatchDetails } from "../../components/MatchDetails/MatchDetails";
 import { Square } from "../../models/Square";
 import { OponentContext } from "../../context/Oponent";
 import { winningOptions } from "../../constants/WinningOptions";
-import socketConnection from "../../socket";
 import { withWindowReload } from "../../hoc/withWindowReload";
+import socketConnection from "../../socket";
 
 const initalSquares = [];
 for (let i = 0; i < 9; i++) {
@@ -71,9 +71,6 @@ const Game = () => {
   };
 
   useEffect(() => {
-    console.log("turn", turn);
-    console.log("squares", squares);
-
     if (turn) {
       setPlayerTurn(false);
       socket.emit("move", clickedIndex);
@@ -113,7 +110,6 @@ const Game = () => {
     });
 
     socket.on("leave", () => {
-      console.log("leaving..");
       toast.info("Oponent leaved", { autoClose: 3000, pauseOnHover: false });
       closeGame();
     });

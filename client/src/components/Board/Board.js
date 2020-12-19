@@ -29,16 +29,12 @@ Board.propTypes = {
     if (!squares) {
       error = true;
     }
-    // ensure it is an array
+
     if (!Array.isArray(squares)) {
       error = true;
-    }
-    // ensure array has items
-    else if (squares.length !== 9) {
+    } else if (squares.length !== 9) {
       error = true;
-    }
-    // ensure all items are Square types
-    else {
+    } else {
       for (let i = 0; i < squares.length; i++) {
         if (!squares[i] instanceof Square) {
           error = true;
@@ -46,7 +42,7 @@ Board.propTypes = {
         }
       }
     }
-    // throw error
+
     if (error) {
       return new Error(
         `Invalid prop ${propName} supplied to 

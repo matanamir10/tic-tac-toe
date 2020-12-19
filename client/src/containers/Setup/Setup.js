@@ -16,7 +16,6 @@ export const Setup = () => {
       socket.connect();
       const connection = socket.getSocket();
       connection.on("connect", () => {
-        console.log("connected");
         connection.on("game", (data) => {
           setLoading(false);
           setGame(true);

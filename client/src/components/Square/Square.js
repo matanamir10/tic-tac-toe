@@ -7,7 +7,6 @@ export const Square = ({ square, onSquareClicked, player }) => {
     squareClasses = `square square--disabled`;
   }
 
-  // TODO: Square in colors
   return (
     <div
       className={squareClasses}
