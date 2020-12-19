@@ -4,7 +4,6 @@ let socket = null;
 
 const socketConnection = {
   connect() {
-    console.log("in socker connection");
     socket = io("http://localhost:4000");
   },
   getSocket() {
