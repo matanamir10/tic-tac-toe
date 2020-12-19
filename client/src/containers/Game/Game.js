@@ -7,6 +7,7 @@ import { Square } from "../../models/Square";
 import { OponentContext } from "../../context/Oponent";
 import { winningOptions } from "../../constants/WinningOptions";
 import socketConnection from "../../socket";
+import { withWindowReload } from "../../hoc/withWindowReload";
 
 const initalSquares = [];
 for (let i = 0; i < 9; i++) {
@@ -15,11 +16,12 @@ for (let i = 0; i < 9; i++) {
 
 let clickedIndex = null;
 
-export const Game = () => {
+const Game = () => {
   const [squares, setSquares] = useState(initalSquares);
   const { turn, setPlayerTurn, player, setPlayerType, setGame } = useContext(
     OponentContext
   );
+
   const socket = socketConnection.getSocket();
 
   const onSquareClicked = (index, playerType) => {
@@ -59,13 +61,19 @@ export const Game = () => {
     return squares.every((sq) => sq.value !== null);
   };
 
-  const closeGame = () => {
+  const notifyEndOfGame = () => {
+    socket.emit("endGame");
     setPlayerTurn(false);
-    socket.emit("winner");
+  };
+
+  const closeGame = () => {
     setGame(false);
   };
 
   useEffect(() => {
+    console.log("turn", turn);
+    console.log("squares", squares);
+
     if (turn) {
       setPlayerTurn(false);
       socket.emit("move", clickedIndex);
@@ -74,11 +82,13 @@ export const Game = () => {
     let winner = checkForWin();
     if (winner || checkDraw()) {
       if (winner) {
+        notifyEndOfGame();
         toast.info(`The winner is: ${winner}`, {
           autoClose: 3000,
           onClose: closeGame,
         });
       } else {
+        notifyEndOfGame();
         toast.info("Great draw", {
           autoClose: 3000,
           onClose: closeGame,
@@ -91,6 +101,7 @@ export const Game = () => {
     socket.on("player", (player) => {
       setPlayerType(player);
     });
+
     socket.on("act", () => {
       setPlayerTurn(true);
     });
@@ -100,10 +111,12 @@ export const Game = () => {
     });
 
     socket.on("leave", () => {
-      toast.info("Oponent leaved");
-      closeGame();
+      // toast.info("Oponent leaved");
+      // closeGame();
     });
+
     socket.emit("ready");
+
     return () => {
       socket.disconnect();
     };
@@ -121,3 +134,5 @@ export const Game = () => {
     </div>
   );
 };
+
+export default withWindowReload(Game);

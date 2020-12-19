@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { OponentContext } from "../../context/Oponent";
 import { ErrorBoundary } from "../../ErrorBoundary/ErrorBoundary";
-import { Game } from "../Game/Game";
+import Game from "../Game/Game";
 import { Setup } from "../Setup/Setup";
 
 export const App = () => {
