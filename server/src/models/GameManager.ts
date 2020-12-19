@@ -1,4 +1,3 @@
-import colors from "colors";
 import { v4 as uuid } from "uuid";
 import { Player } from "./../enums/Player";
 import { IDisposeable } from "../interfaces/IDisposeable";
