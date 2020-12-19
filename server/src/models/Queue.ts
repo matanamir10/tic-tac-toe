@@ -9,6 +9,7 @@ export class Queue<T extends QueueItem> implements IQueue<T>, IPrintable {
   private storage: T[] = [];
 
   constructor(private capacity: number = Infinity) {}
+
   enqueue(item: T): void {
     if (this.size() === this.capacity) {
       throw Error("Queue has reached max capacity, you cannot add more items");

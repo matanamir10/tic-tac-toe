@@ -1,10 +1,9 @@
 import { v4 as uuid } from "uuid";
 import { Player } from "./../enums/Player";
-import { IDisposeable } from "../interfaces/IDisposeable";
 import { Oponent } from "./Oponent";
 import { ServerSocket } from "./serverSocket";
 
-export class GameManager implements IDisposeable {
+export class GameManager {
   private gameId: string;
   private isGmaeLive: boolean = true;
 
@@ -21,6 +20,7 @@ export class GameManager implements IDisposeable {
     this.oponentOne.socket.on("ready", () => {
       this.oponentOne.socket.emit("player", Player.X);
       this.oponentOne.socket.emit("act");
+
       this.oponentOne.socket.on("move", (move) => {
         this.oponentTwo.socket.emit("updateBoard", {
           index: move,
@@ -64,11 +64,5 @@ export class GameManager implements IDisposeable {
         }
       });
     });
-  }
-
-  dispose(): void {
-    // console.log(colors.green("Disposing..."));
-    // this.oponentOne.dispose();
-    // this.oponentTwo.dispose();
   }
 }
