@@ -17,26 +17,24 @@ export class GameManager implements IDisposeable {
   }
 
   start(): void {
-    console.log("here");
     ServerSocket.io.to(this.gameId).emit("game", "Game is stating...");
 
     this.oponentOne.socket.on("ready", () => {
       this.oponentOne.socket.emit("player", Player.X);
       this.oponentOne.socket.emit("act");
       this.oponentOne.socket.on("move", (move) => {
-        console.log("updateBoard");
-
         this.oponentTwo.socket.emit("updateBoard", {
           index: move,
           player: Player.X,
         });
-        console.log("act");
         this.oponentTwo.socket.emit("act");
       });
-      this.oponentOne.socket.on("winner", () => {
+
+      this.oponentOne.socket.on("endGame", () => {
         this.dispose();
       });
-      this.oponentOne.socket.on("disconnetc", () => {
+
+      this.oponentOne.socket.on("disconnect", () => {
         this.oponentTwo.socket.emit("leave");
       });
     });
@@ -44,20 +42,19 @@ export class GameManager implements IDisposeable {
     this.oponentTwo.socket.on("ready", () => {
       this.oponentTwo.socket.emit("player", Player.O);
       this.oponentTwo.socket.on("move", (move) => {
-        console.log("updateBoard");
         this.oponentOne.socket.emit("updateBoard", {
           index: move,
           player: Player.O,
         });
-        console.log("act");
+
         this.oponentOne.socket.emit("act");
       });
 
-      this.oponentTwo.socket.on("winner", () => {
+      this.oponentTwo.socket.on("endGame", () => {
         this.dispose();
       });
+
       this.oponentTwo.socket.on("disconnect", () => {
-        console.log("disc;kihsd");
         this.oponentOne.socket.emit("leave");
       });
     });
