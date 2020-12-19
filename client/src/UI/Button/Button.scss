@@ -1,0 +1,10 @@
+@import "../../styles/variables.scss";
+
+.custom__btn {
+  border-radius: 3px;
+  padding: 1.2rem 1.4rem;
+  font-size: 1.4rem;
+  border-color: $square-color;
+  background-color: $square-color;
+  cursor: pointer;
+}

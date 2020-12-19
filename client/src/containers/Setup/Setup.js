@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import ReactLoading from "react-loading";
 import socket from "../../socket";
 import { OponentContext } from "../../context/Oponent";
+import { Button } from "../../UI/Button/Button";
 
 export const Setup = () => {
   const [loading, setLoading] = useState(false);
@@ -28,9 +29,9 @@ export const Setup = () => {
 
   return (
     <div className="setup">
-      <button className="setup__cta" onClick={startConnection}>
+      <Button className="setup__cta" onClick={startConnection}>
         Start Game
-      </button>
+      </Button>
       {loading ? (
         <ReactLoading
           className="setup__loading"

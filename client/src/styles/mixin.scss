@@ -1,8 +1,15 @@
-@mixin flexCenter($direction:row) {
-    @if $direction == column {
-        flex-direction: column;
-    }
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@mixin flexCenter($direction: row) {
+  @if $direction == column {
+    flex-direction: column;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin absCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

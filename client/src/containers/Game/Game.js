@@ -111,8 +111,8 @@ const Game = () => {
     });
 
     socket.on("leave", () => {
-      // toast.info("Oponent leaved");
-      // closeGame();
+      toast.info("Oponent leaved");
+      closeGame();
     });
 
     socket.emit("ready");
